@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   const[data,setData]=useState([]);
   async function get(){
-    const response = await fetch("http://example.com/movies.json");
+    const response = await fetch("/users");
     const jsonData = await response.json();
     setData(jsonData);
   }
@@ -19,7 +19,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          {data}
+          {data.map((d:any) => <li>{d.firstName}</li>)}
         </p>
       </header>
     </div>
