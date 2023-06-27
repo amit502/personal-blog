@@ -54,7 +54,7 @@
     "concurrently": "^6.2.0",
     "nodemon": "^2.0.9"
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "https://personal-blog-ibriz.onrender.com",//"http://localhost:3001",
   "engines": {
     "node": ">=14"
   }
