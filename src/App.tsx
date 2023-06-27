@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   const[data,setData]=useState([]);
   async function get(){
-    const response = await fetch("/users");
+    const response = await fetch("https://personal-blog-ibriz.onrender.com/users");
     const jsonData = await response.json();
     setData(jsonData);
   }
