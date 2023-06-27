@@ -23,6 +23,7 @@
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
+    "prodServer": "node ./build/server.js",
     "client": "react-scripts start",
     "server": "nodemon ./server/server.js",
     "seed": "node ./scripts/seedDb.js",
