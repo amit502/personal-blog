@@ -16,6 +16,7 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "sequelize": "^6.32.1",
+    "serve": "^14.2.0",
     "sqlite3": "^5.1.6",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
@@ -25,7 +26,7 @@
     "client": "react-scripts start",
     "server": "nodemon ./server/server.js",
     "seed": "node ./scripts/seedDb.js",
-    "build": "react-scripts build",
+    "build": "react-scripts build && serve -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
