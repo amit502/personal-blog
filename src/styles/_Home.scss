@@ -1,0 +1,11 @@
+.add-blog {
+    width: 2rem;
+    height: 2rem;
+    color: rgb(9, 152, 102);
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}

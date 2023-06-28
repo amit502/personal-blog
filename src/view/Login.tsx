@@ -1,116 +1,137 @@
-import React from "react";
-import useAuthentication from "../hooks/useAuthentication";
-import { useFormik } from "formik";
+import React from 'react';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { ILogin } from "../types/AuthTypes";
-import { login } from "../apis/AuthAPI";
-import Button from "../components/Button";
+import { ILogin } from '../types/AuthTypes';
+import { login } from '../apis/AuthAPI';
+import Button from '../components/Button';
 
 interface LoginProps {
     setLoginForm: Function;
 }
 
-const Login = ({setLoginForm}:LoginProps) => {
-    const authentication = useAuthentication(); 
+const Login = ({ setLoginForm }: LoginProps) => {
     const formik = useFormik({
         enableReinitialize: true,
-        initialValues: {email:'',password:''},
+        initialValues: { email: '', password: '' },
         validationSchema: Yup.object({
-            email: Yup.string().email().required("Please enter email"),
-            password: Yup.string().required("Please enter password"),
+            email: Yup.string().email().required('Please enter email'),
+            password: Yup.string().required('Please enter password'),
         }),
-        onSubmit: (values:ILogin) => {
+        onSubmit: (values: ILogin) => {
             const loginUser = async () => {
                 try {
                     const response = await login(values);
-                    if(response){
-                        localStorage.setItem('blogUser', JSON.stringify(response?.data || null));
+                    if (response) {
+                        localStorage.setItem(
+                            'blogUser',
+                            JSON.stringify(response?.data || null)
+                        );
                         setLoginForm(false);
                         window.location.href = '/';
-                    }else{
+                    } else {
                         throw Error();
                     }
-
-                }catch(e:any){
-                    formik.setFieldError("password","Invalid email or password");
+                } catch (e: any) {
+                    formik.setFieldError(
+                        'password',
+                        'Invalid email or password'
+                    );
                 }
+            };
 
-            }
-            
             loginUser();
-
-        }
+        },
     });
-    return(
+    return (
         <div className="login-page">
             <div className="form-section">
                 <div className="login-form-container">
                     <div className="login-form">
                         <div className="form-group">
                             <label>Email</label>
-                            <div 
+                            <div
                                 className={
-                                        formik.errors && formik.errors?.password && 
-                                        formik.touched && formik.touched?.password
-                                        ? "is-invalid" : ""
-                                    }>
-                                <input 
+                                    formik.errors &&
+                                    formik.errors?.password &&
+                                    formik.touched &&
+                                    formik.touched?.password
+                                        ? 'is-invalid'
+                                        : ''
+                                }
+                            >
+                                <input
                                     className={
-                                        formik.errors && formik.errors?.email && 
-                                        formik.touched && formik.touched?.email
-                                        ? "form-control is-invalid" : "form-control"
+                                        formik.errors &&
+                                        formik.errors?.email &&
+                                        formik.touched &&
+                                        formik.touched?.email
+                                            ? 'form-control is-invalid'
+                                            : 'form-control'
                                     }
                                     name="email"
-                                    value={formik.values?.email || ""}
+                                    value={formik.values?.email || ''}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 />
-                                {
-                                    formik.errors && formik.errors?.email && 
-                                    formik.touched && formik.touched?.email &&
-                                    <div className="invalid-feedback">{formik.errors?.email || ""}</div>
-                                }
+                                {formik.errors &&
+                                    formik.errors?.email &&
+                                    formik.touched &&
+                                    formik.touched?.email && (
+                                        <div className="invalid-feedback">
+                                            {formik.errors?.email || ''}
+                                        </div>
+                                    )}
                             </div>
                         </div>
                         <div className="form-group">
                             <label>Password</label>
-                            <div 
+                            <div
                                 className={
-                                        formik.errors && formik.errors?.password && 
-                                        formik.touched && formik.touched?.password
-                                        ? "is-invalid" : ""
-                                    }>
-                                <input 
+                                    formik.errors &&
+                                    formik.errors?.password &&
+                                    formik.touched &&
+                                    formik.touched?.password
+                                        ? 'is-invalid'
+                                        : ''
+                                }
+                            >
+                                <input
                                     className={
-                                        formik.errors && formik.errors?.password && 
-                                        formik.touched && formik.touched?.password
-                                        ? "form-control is-invalid" : "form-control"
+                                        formik.errors &&
+                                        formik.errors?.password &&
+                                        formik.touched &&
+                                        formik.touched?.password
+                                            ? 'form-control is-invalid'
+                                            : 'form-control'
                                     }
                                     name="password"
-                                    type='password'
-                                    value={formik.values?.password || ""}
+                                    type="password"
+                                    value={formik.values?.password || ''}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 />
                             </div>
-                            {
-                                formik.errors && formik.errors?.password && 
-                                formik.touched && formik.touched?.password &&
-                                <div className="invalid-feedback">{formik.errors?.password || ""}</div>
-                            }
+                            {formik.errors &&
+                                formik.errors?.password &&
+                                formik.touched &&
+                                formik.touched?.password && (
+                                    <div className="invalid-feedback">
+                                        {formik.errors?.password || ''}
+                                    </div>
+                                )}
                         </div>
                     </div>
                     <div className="login-footer">
-                    <Button
-                        type={"submit"}
-                        label="Login"
-                        handleClick={(e:any) => formik.handleSubmit(e)}
-                    />
-                    </div>                    
+                        <Button
+                            type={'submit'}
+                            label="Login"
+                            handleClick={(e: any) => formik.handleSubmit(e)}
+                        />
+                    </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Login;

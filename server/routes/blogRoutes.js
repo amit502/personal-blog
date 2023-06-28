@@ -2,9 +2,9 @@ const routes = require('express').Router();
 const { isAuthenticated } = require('../middlewares/authMiddleware');
 const BlogController = require('../controllers/blogController');
 
-routes.get('/',(req,res) => {
-    res.send("Blog Section");
-})
+routes.get('/', (req, res) => {
+    res.send('Blog Section');
+});
 
 routes.get('/fetchAllBlogs', isAuthenticated, BlogController.getAllBlogs);
 routes.get('/fetchBlogs', BlogController.getBlogs);

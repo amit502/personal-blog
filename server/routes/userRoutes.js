@@ -2,9 +2,9 @@ const routes = require('express').Router();
 const { isAuthenticated } = require('../middlewares/authMiddleware');
 const UserController = require('../controllers/userController');
 
-routes.get('/',(req,res) => {
-    res.send("User Section");
-})
+routes.get('/', (req, res) => {
+    res.send('User Section');
+});
 
 routes.get('/fetchAllUsers', isAuthenticated, UserController.getAllUsers);
 routes.get('/fetchUsers', isAuthenticated, UserController.getUsers);

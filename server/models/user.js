@@ -1,47 +1,47 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./dbConfig');
 
-class User extends Sequelize.Model { }
+class User extends Sequelize.Model {}
 
 User.init(
-  {
-    // attributes
-    id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+    {
+        // attributes
+        id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        firstName: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        lastName: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        email: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        password: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        joinDate: {
+            type: Sequelize.DATE,
+            allowNull: true,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        },
+        refreshToken: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
     },
-    firstName: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    lastName: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    email: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    password: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    joinDate: {
-        type: Sequelize.DATE,
-        allowNull: true,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-    },
-    refreshToken: {
-        type: Sequelize.STRING,
-        allowNull: true
+    {
+        sequelize,
+        modelName: 'Users',
+        // options
     }
-  },
-  {
-    sequelize,
-    modelName: 'Users'
-    // options
-  }
 );
 
 module.exports = User;

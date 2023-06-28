@@ -1,30 +1,78 @@
-import React from "react";
-import { IBlog } from "../types/BlogTypes";
+import React from 'react';
+import { IBlog } from '../types/BlogTypes';
+import { TrashCan } from '@carbon/icons-react';
+import useAuthentication from '../hooks/useAuthentication';
+import Button from './Button';
 
-const BlogCard = (blog: IBlog) => {
-    return(
+interface BlogCardProps {
+    blog: IBlog;
+    handleClick: Function;
+    delBlog: Function;
+    updatePublishStatus: Function;
+}
+
+const BlogCard = ({
+    blog,
+    handleClick,
+    delBlog,
+    updatePublishStatus,
+}: BlogCardProps) => {
+    const loggedIn = useAuthentication();
+    return (
         <div className="col-lg-4 col-md-6 col-12">
-            <div className="card">
-                <div className="card-title">
-                    <h4 className="mb-0">{blog.title}</h4>
-                </div>
-                <div className="card-author">
-                    <span>
-                        {blog.User?.firstName + " " + blog.User?.lastName }
-                        {blog.createdAt ? " | " + new Date(blog.createdAt || "").toLocaleDateString(): ""}
-                    </span>
-                </div>
-                <div className="card-subtitle">
-                    <span>{blog.subtitle}</span>
+            <div className="card" onClick={() => handleClick(blog)}>
+                <div className="card-top">
+                    <div>
+                        <div className="card-title">
+                            <h4 className="mb-0">{blog.title}</h4>
+                        </div>
+                        <div className="card-author">
+                            <span>
+                                {blog.User?.firstName +
+                                    ' ' +
+                                    blog.User?.lastName}
+                                {blog.createdAt
+                                    ? ' | ' +
+                                      new Date(
+                                          blog.createdAt || ''
+                                      ).toLocaleDateString()
+                                    : ''}
+                            </span>
+                        </div>
+                        <div className="card-subtitle">
+                            <span>{blog.subtitle}</span>
+                        </div>
+                    </div>
+                    {loggedIn && (
+                        <div className="card-tools">
+                            <Button
+                                label={blog.published ? 'Unpublish' : 'Publish'}
+                                handleClick={(e) => {
+                                    e.stopPropagation();
+                                    let updBlog = blog;
+                                    updBlog.published = !blog.published;
+                                    updatePublishStatus(updBlog);
+                                }}
+                            />
+                            <TrashCan
+                                className="delete"
+                                onClick={(e) => {
+                                    delBlog(blog);
+                                    e.stopPropagation();
+                                }}
+                            />
+                        </div>
+                    )}
                 </div>
                 <div className="card-content">
                     <p>
-                        {blog.content?.substring(0,200)}{"..."}
+                        {blog.content?.substring(0, 200)}
+                        {'...'}
                     </p>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default BlogCard;
