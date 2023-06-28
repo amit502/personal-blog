@@ -6,9 +6,9 @@ import Button from './Button';
 
 interface BlogCardProps {
     blog: IBlog;
-    handleClick: Function;
-    delBlog: Function;
-    updatePublishStatus: Function;
+    handleClick: (arg0: IBlog) => void;
+    delBlog: (arg0: IBlog) => void;
+    updatePublishStatus: (arg0: IBlog) => void;
 }
 
 const BlogCard = ({
@@ -49,7 +49,7 @@ const BlogCard = ({
                                 label={blog.published ? 'Unpublish' : 'Publish'}
                                 handleClick={(e) => {
                                     e.stopPropagation();
-                                    let updBlog = blog;
+                                    const updBlog = blog;
                                     updBlog.published = !blog.published;
                                     updatePublishStatus(updBlog);
                                 }}

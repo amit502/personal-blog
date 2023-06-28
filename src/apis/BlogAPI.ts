@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { IBlog } from '../types/BlogTypes';
 
 export const fetchAllBlogs = async () => {
     return await axios({
@@ -16,7 +17,7 @@ export const fetchBlogs = async (page: number, size: number) => {
     });
 };
 
-export const postBlog = async (body: any) => {
+export const postBlog = async (body: IBlog) => {
     return await axios({
         baseURL: process.env.REACT_APP_BASE_URL,
         method: body.id ? 'PUT' : 'POST',
@@ -25,7 +26,7 @@ export const postBlog = async (body: any) => {
     });
 };
 
-export const deleteBlog = async (body: any) => {
+export const deleteBlog = async (body: IBlog) => {
     return await axios({
         baseURL: process.env.REACT_APP_BASE_URL,
         method: 'DELETE',

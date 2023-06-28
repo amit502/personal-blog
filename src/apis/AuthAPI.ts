@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ILogin } from '../types/AuthTypes';
+import { ILogin, IUserCreate } from '../types/AuthTypes';
 
 export const login = async (data: ILogin) => {
     return await axios({
@@ -37,7 +37,7 @@ export const fetchUserAuthorization = async () => {
     });
 };
 
-export const signUp = async (data: any) => {
+export const signUp = async (data: IUserCreate) => {
     return await axios({
         method: 'POST',
         baseURL: process.env.REACT_APP_BASE_URL,

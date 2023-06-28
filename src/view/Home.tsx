@@ -37,7 +37,7 @@ const Home = () => {
 
     const totalCount = (data && data.data?.count) || 0;
 
-    let pageCount = Math.ceil(totalCount / size);
+    const pageCount = Math.ceil(totalCount / size);
 
     const { mutate: delBlog } = useMutation(deleteBlog, {
         onSuccess: () => {
@@ -47,11 +47,8 @@ const Home = () => {
             setStatus(SNACKBAR_TYPE.SUCCESS, 'Blog deleted successfully.');
             refetch();
         },
-        onError: (e) => {
-            setStatus(
-                SNACKBAR_TYPE.ERROR,
-                (e as any)?.response?.data?.message || 'Something went wrong'
-            );
+        onError: () => {
+            setStatus(SNACKBAR_TYPE.ERROR, 'Something went wrong');
         },
     });
 
@@ -63,11 +60,8 @@ const Home = () => {
             setStatus(SNACKBAR_TYPE.SUCCESS, msg);
             refetch();
         },
-        onError: (e) => {
-            setStatus(
-                SNACKBAR_TYPE.ERROR,
-                (e as any)?.response?.data?.message || 'Something went wrong'
-            );
+        onError: () => {
+            setStatus(SNACKBAR_TYPE.ERROR, 'Something went wrong');
         },
     });
 
@@ -88,7 +82,7 @@ const Home = () => {
     };
 
     const getPaginatedGroup = () => {
-        let start = Math.floor((page - 1) / size) * size || 0;
+        const start = Math.floor((page - 1) / size) * size || 0;
         return new Array(Math.min(size, pageCount - start))
             .fill(0)
             .map((_, index) => start + index + 1);
@@ -120,7 +114,9 @@ const Home = () => {
             <CustomModal
                 isOpen={createBlogForm}
                 handleOnClose={() => setCreateBlogForm(false)}
-                handleOnSubmit={() => {}}
+                handleOnSubmit={() => {
+                    return;
+                }}
                 modalTitle={'Create Blog'}
                 showButton={false}
             >
@@ -148,7 +144,9 @@ const Home = () => {
                 <CustomModal
                     isOpen={loginForm}
                     handleOnClose={() => setLoginForm(false)}
-                    handleOnSubmit={() => {}}
+                    handleOnSubmit={() => {
+                        return;
+                    }}
                     modalTitle={'Login'}
                     showButton={false}
                 >
@@ -158,7 +156,9 @@ const Home = () => {
                 <CustomModal
                     isOpen={signUpForm}
                     handleOnClose={() => setSignUpForm(false)}
-                    handleOnSubmit={() => {}}
+                    handleOnSubmit={() => {
+                        return;
+                    }}
                     modalTitle={'Add Admin User'}
                     showButton={false}
                 >
@@ -241,7 +241,7 @@ const Home = () => {
                                             ></i>
                                         </button>
                                         {getPaginatedGroup().map(
-                                            (ele: any, i: number) => (
+                                            (ele: number, i: number) => (
                                                 <li
                                                     key={i}
                                                     className={

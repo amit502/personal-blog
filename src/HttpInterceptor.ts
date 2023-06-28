@@ -45,7 +45,7 @@ export const HttpResponseInterceptor = axios.interceptors.response.use(
             return getAccessToken(refreshToken)
                 .then((res) => {
                     if (res) {
-                        let usr = JSON.parse(
+                        const usr = JSON.parse(
                             localStorage.getItem('blogUser') || 'null'
                         );
                         usr.accessToken = res?.data?.accessToken;

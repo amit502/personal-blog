@@ -8,9 +8,9 @@ import useAuthentication from '../hooks/useAuthentication';
 
 interface BlogDetailProps {
     blog: IBlog;
-    setBlogDetailView: Function;
-    delBlog: Function;
-    updatePublishStatus: Function;
+    setBlogDetailView: (arg0: IBlog | null) => void;
+    delBlog: (arg0: IBlog) => void;
+    updatePublishStatus: (arg0: IBlog) => void;
 }
 
 const BlogDetail = ({
@@ -26,7 +26,9 @@ const BlogDetail = ({
             <CustomModal
                 isOpen={editBlog}
                 handleOnClose={() => setEditBlog(false)}
-                handleOnSubmit={() => {}}
+                handleOnSubmit={() => {
+                    return;
+                }}
                 modalTitle={'Edit Blog'}
                 showButton={false}
             >
@@ -87,7 +89,7 @@ const BlogDetail = ({
                                         blog.published ? 'Unpublish' : 'Publish'
                                     }
                                     handleClick={() => {
-                                        let updBlog = blog;
+                                        const updBlog = blog;
                                         updBlog.published = !blog.published;
                                         updatePublishStatus(updBlog);
                                     }}

@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
 
-const StatusTypeContext = React.createContext<any>(null);
-const StatusMessageContext = React.createContext<any>(null);
+const StatusTypeContext = React.createContext<string | null>(null);
+const StatusMessageContext = React.createContext<string | null>(null);
+// eslint-disable-next-line
 const SetStatusContext = React.createContext<any>(null);
 
 export function useStatusType() {
@@ -16,7 +17,11 @@ export function useSetStatus() {
     return useContext(SetStatusContext);
 }
 
-export function StatusProvider({ children }: any) {
+interface StatusProviderProps {
+    children: React.ReactNode;
+}
+
+export function StatusProvider({ children }: StatusProviderProps) {
     const [type, setType] = useState('');
     const [message, setMessage] = useState('');
 

@@ -1,13 +1,14 @@
+import React from 'react';
 import { Close } from '@carbon/icons-react';
 import { CircularProgress } from '@mui/material';
 import Button from './Button';
 import { Modal } from '@mui/material';
 
 interface ModalProps {
-    handleOnClose: Function;
-    handleOnSubmit: Function;
-    modalTitle: String;
-    children: any;
+    handleOnClose: () => void;
+    handleOnSubmit: () => void;
+    modalTitle: string;
+    children: React.ReactNode;
     isOpen?: boolean;
     isProgressBar?: boolean;
     showButton?: boolean;

@@ -1,13 +1,18 @@
+import React from 'react';
+type RGB = `rgb(${number}, ${number}, ${number})`;
+type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
+type HEX = `#${string}`;
+
 interface ButtonProps {
     label: string;
-    Icon?: any;
-    color?: any;
-    borderColor?: any;
-    bgColor?: any;
+    Icon?: React.ReactNode;
+    color?: RGB | RGBA | HEX | string;
+    borderColor?: RGB | RGBA | HEX | string;
+    bgColor?: RGB | RGBA | HEX | string;
     disabled?: boolean;
     handleClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
     style?: React.CSSProperties | undefined;
-    type?: any;
+    type?: 'button' | 'reset' | 'submit' | undefined;
 }
 
 const Button = ({
@@ -35,7 +40,13 @@ const Button = ({
                 ...style,
             }}
             disabled={disabled}
-            onClick={handleClick ? handleClick : () => {}}
+            onClick={
+                handleClick
+                    ? handleClick
+                    : () => {
+                          return;
+                      }
+            }
             type={type ? type : 'button'}
         >
             {Icon ? Icon : <span></span>}

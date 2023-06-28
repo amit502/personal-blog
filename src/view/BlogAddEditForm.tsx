@@ -12,8 +12,8 @@ import { TextField } from '@mui/material';
 
 interface BlogAddEditFormProps {
     blog?: IBlog;
-    handleCloseForm: Function;
-    setBlogEditView?: Function;
+    handleCloseForm: (arg0: boolean) => void;
+    setBlogEditView?: (arg0: IBlog) => void;
 }
 
 const BlogAddEditForm = ({
@@ -29,22 +29,27 @@ const BlogAddEditForm = ({
         error,
         isSuccess,
     } = useMutation(postBlog, {
-        onSuccess: (data) =>
-            setBlogEditView ? setBlogEditView(data.data) : {},
+        onSuccess: (data) => {
+            setBlogEditView ? setBlogEditView(data.data) : {};
+        },
     });
 
     const setStatus = useSetStatus();
 
-    const initialValues: any = blog
+    const initialValues: IBlog = blog
         ? {
               title: blog.title,
               subtitle: blog.subtitle,
               content: blog.content,
+              published: blog.published,
+              UserId: blog.UserId,
           }
         : {
               title: '',
               subtitle: '',
               content: '',
+              published: false,
+              UserId: user?.id || 1,
           };
 
     const formik = useFormik({
@@ -56,7 +61,7 @@ const BlogAddEditForm = ({
             content: Yup.string().required('Content is required'),
         }),
         onSubmit: (values: IBlog) => {
-            let val = blog?.id
+            const val = blog?.id
                 ? {
                       ...blog,
                       title: values.title,
@@ -66,7 +71,7 @@ const BlogAddEditForm = ({
                 : {
                       ...values,
                       published: false,
-                      UserId: user?.id,
+                      UserId: user?.id || 1,
                   };
             addUpdateBlog(val);
         },
@@ -78,11 +83,7 @@ const BlogAddEditForm = ({
             formik.resetForm();
             handleCloseForm(false);
         } else if (!isLoading && isError && error) {
-            setStatus(
-                SNACKBAR_TYPE.ERROR,
-                (error as any)?.response?.data?.message ||
-                    'Something went wrong'
-            );
+            setStatus(SNACKBAR_TYPE.ERROR, 'Something went wrong');
         }
         // eslint-disable-next-line
     }, [isLoading, isError, error, isSuccess]);
@@ -173,7 +174,10 @@ const BlogAddEditForm = ({
             <Button
                 type={'submit'}
                 label="Submit"
-                handleClick={(e: any) => formik.handleSubmit(e)}
+                handleClick={
+                    // eslint-disable-next-line
+                    (e: any) => formik.handleSubmit(e)
+                }
             />
         </div>
     );

@@ -12,3 +12,10 @@ export interface IUser {
     accessToken: string | null;
     refreshToken: string | null;
 }
+
+export interface IUserCreate {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+}

@@ -6,9 +6,10 @@ import GlobalAlert, { SNACKBAR_TYPE } from '../components/Alert';
 import { useSetStatus } from '../context/statusContext';
 import { useMutation } from 'react-query';
 import Button from '../components/Button';
+import { IUserCreate } from '../types/AuthTypes';
 
 interface SignUpForm {
-    setSignUpForm: Function;
+    setSignUpForm: (arg0: boolean) => void;
 }
 
 const SignUp = ({ setSignUpForm }: SignUpForm) => {
@@ -22,7 +23,7 @@ const SignUp = ({ setSignUpForm }: SignUpForm) => {
 
     const setStatus = useSetStatus();
 
-    const initialValues: any = {
+    const initialValues: IUserCreate = {
         firstName: '',
         lastName: '',
         email: '',
@@ -38,19 +39,20 @@ const SignUp = ({ setSignUpForm }: SignUpForm) => {
             email: Yup.string().email().required('Email is required'),
             password: Yup.string().min(8).required('Password is required'),
         }),
-        onSubmit: (values: any) => {
+        onSubmit: (values: IUserCreate) => {
             createUser(values);
         },
     });
 
     useEffect(() => {
         if (isSuccess && !isLoading && !isError && !error) {
-            setStatus(SNACKBAR_TYPE.SUCCESS, 'SignUp successful.');
+            setStatus(SNACKBAR_TYPE.SUCCESS, 'User added successfully.');
             formik.resetForm();
             setSignUpForm(false);
         } else if (!isLoading && isError && error) {
             setStatus(
                 SNACKBAR_TYPE.ERROR,
+                // eslint-disable-next-line
                 (error as any)?.response?.data?.message ||
                     'Something went wrong'
             );
@@ -168,7 +170,10 @@ const SignUp = ({ setSignUpForm }: SignUpForm) => {
             <Button
                 type={'submit'}
                 label="Submit"
-                handleClick={(e: any) => formik.handleSubmit(e)}
+                handleClick={
+                    // eslint-disable-next-line
+                    (e: any) => formik.handleSubmit(e)
+                }
             />
         </div>
     );

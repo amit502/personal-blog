@@ -6,7 +6,7 @@ import { login } from '../apis/AuthAPI';
 import Button from '../components/Button';
 
 interface LoginProps {
-    setLoginForm: Function;
+    setLoginForm: (arg0: boolean) => void;
 }
 
 const Login = ({ setLoginForm }: LoginProps) => {
@@ -31,7 +31,7 @@ const Login = ({ setLoginForm }: LoginProps) => {
                     } else {
                         throw Error();
                     }
-                } catch (e: any) {
+                } catch (e) {
                     formik.setFieldError(
                         'password',
                         'Invalid email or password'
@@ -125,7 +125,10 @@ const Login = ({ setLoginForm }: LoginProps) => {
                         <Button
                             type={'submit'}
                             label="Login"
-                            handleClick={(e: any) => formik.handleSubmit(e)}
+                            handleClick={
+                                // eslint-disable-next-line
+                                (e: any) => formik.handleSubmit(e)
+                            }
                         />
                     </div>
                 </div>
