@@ -189,13 +189,17 @@ const Home = () => {
                     </h3>
                     <div className="row">
                         {pageData.map((blg: IBlog) => (
-                            <BlogCard
-                                blog={blg}
-                                handleClick={setBlogDetailView}
+                            <div
+                                className="col-lg-4 col-md-6 col-12"
                                 key={blg.id}
-                                delBlog={delBlog}
-                                updatePublishStatus={updatePublishStatus}
-                            />
+                            >
+                                <BlogCard
+                                    blog={blg}
+                                    handleClick={setBlogDetailView}
+                                    delBlog={delBlog}
+                                    updatePublishStatus={updatePublishStatus}
+                                />
+                            </div>
                         ))}
                     </div>
                     {pageData?.length > 0 ? (

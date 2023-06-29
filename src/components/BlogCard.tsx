@@ -19,61 +19,57 @@ const BlogCard = ({
 }: BlogCardProps) => {
     const loggedIn = useAuthentication();
     return (
-        <div className="col-lg-4 col-md-6 col-12">
-            <div
-                className="card"
-                onClick={() => handleClick(blog)}
-                data-testid="blog-card"
-            >
-                <div className="card-top">
-                    <div>
-                        <div className="card-title">
-                            <h4 className="mb-0">{blog.title}</h4>
-                        </div>
-                        <div className="card-author">
-                            <span>
-                                {blog.User?.firstName +
-                                    ' ' +
-                                    blog.User?.lastName}
-                                {blog.createdAt
-                                    ? ' | ' +
-                                      new Date(
-                                          blog.createdAt || ''
-                                      ).toLocaleDateString()
-                                    : ''}
-                            </span>
-                        </div>
-                        <div className="card-subtitle">
-                            <span>{blog.subtitle}</span>
-                        </div>
+        <div
+            className="card"
+            onClick={() => handleClick(blog)}
+            data-testid="blog-card"
+        >
+            <div className="card-top">
+                <div>
+                    <div className="card-title">
+                        <h4 className="mb-0">{blog.title}</h4>
                     </div>
-                    {loggedIn && (
-                        <div className="card-tools">
-                            <Button
-                                label={blog.published ? 'Unpublish' : 'Publish'}
-                                handleClick={(e) => {
-                                    e.stopPropagation();
-                                    const updBlog = blog;
-                                    updBlog.published = !blog.published;
-                                    updatePublishStatus(updBlog);
-                                }}
-                            />
-                            <TrashCan
-                                className="delete"
-                                onClick={(e) => {
-                                    delBlog(blog);
-                                    e.stopPropagation();
-                                }}
-                            />
-                        </div>
-                    )}
+                    <div className="card-author">
+                        <span>
+                            {blog.User?.firstName + ' ' + blog.User?.lastName}
+                            {blog.createdAt
+                                ? ' | ' +
+                                  new Date(
+                                      blog.createdAt || ''
+                                  ).toLocaleDateString()
+                                : ''}
+                        </span>
+                    </div>
+                    <div className="card-subtitle">
+                        <span>{blog.subtitle}</span>
+                    </div>
                 </div>
-                <div className="card-content">
-                    <p data-testid="card-content">
-                        {blog.content?.substring(0, 200)}
-                        {blog.content?.length > 200 ? '...' : ''}
-                    </p>
-                </div>
+                {loggedIn && (
+                    <div className="card-tools">
+                        <Button
+                            label={blog.published ? 'Unpublish' : 'Publish'}
+                            handleClick={(e) => {
+                                e.stopPropagation();
+                                const updBlog = blog;
+                                updBlog.published = !blog.published;
+                                updatePublishStatus(updBlog);
+                            }}
+                        />
+                        <TrashCan
+                            className="delete"
+                            onClick={(e) => {
+                                delBlog(blog);
+                                e.stopPropagation();
+                            }}
+                        />
+                    </div>
+                )}
+            </div>
+            <div className="card-content">
+                <p data-testid="card-content">
+                    {blog.content?.substring(0, 200)}
+                    {blog.content?.length > 200 ? '...' : ''}
+                </p>
             </div>
         </div>
     );

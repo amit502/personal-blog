@@ -53,4 +53,4 @@ Prettier has been used for formatting the files and eslint has been used to enfo
 2. The backend has been deployed on [Render](https://render.com/)
 3. The app can be accessed using the public url: (https://main--bespoke-cupcake-cb3162.netlify.app/)
 
-*** Note: The render.com hosting for backend is a free plan and hence it spins down when inactive. If the blogs are not fetched and 'No Blogs!' text is displayed, the backend service needs to be restarted. Please, call at 9843527854 so that I can restart it. ***
+*** Note: The render.com hosting for backend is a free plan and hence it spins down when inactive. If the blogs are not fetched and 'No Blogs!' text is displayed, the backend service needs to be restarted. Please, wait for 2-5 mins for the backend service to start automatically due to active usage and then refresh the page. ***
