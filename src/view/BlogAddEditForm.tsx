@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { postBlog } from '../apis/BlogAPI';
 import { useSetStatus } from '../context/statusContext';
@@ -8,7 +8,11 @@ import * as Yup from 'yup';
 import GlobalAlert, { SNACKBAR_TYPE } from '../components/Alert';
 import Button from '../components/Button';
 import useAuthentication from '../hooks/useAuthentication';
-import { TextField } from '@mui/material';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { EditorState } from 'draft-js';
+import { stateToHTML } from 'draft-js-export-html';
+import { stateFromHTML } from 'draft-js-import-html';
 
 interface BlogAddEditFormProps {
     blog?: IBlog;
@@ -21,6 +25,9 @@ const BlogAddEditForm = ({
     handleCloseForm,
     setBlogEditView,
 }: BlogAddEditFormProps) => {
+    const [editorState, setEditorState] = useState<EditorState>(
+        EditorState.createEmpty()
+    );
     const user = useAuthentication();
     const {
         mutate: addUpdateBlog,
@@ -58,7 +65,16 @@ const BlogAddEditForm = ({
         validationSchema: Yup.object({
             title: Yup.string().required('Title is required'),
             subtitle: Yup.string(),
-            content: Yup.string().required('Content is required'),
+            content: Yup.mixed().test(
+                'checkContent',
+                'Content is required',
+                // eslint-disable-next-line
+                function (value: any) {
+                    const state = stateFromHTML(value);
+
+                    return state.hasText() && value;
+                }
+            ),
         }),
         onSubmit: (values: IBlog) => {
             const val = blog?.id
@@ -76,6 +92,23 @@ const BlogAddEditForm = ({
             addUpdateBlog(val);
         },
     });
+
+    useEffect(() => {
+        if (formik && formik.initialValues && !formik.dirty) {
+            setEditorState(
+                EditorState.createWithContent(
+                    stateFromHTML(formik.initialValues.content)
+                )
+            );
+        }
+        // eslint-disable-next-line
+    }, [formik.initialValues.content]);
+
+    const handleEditorStateChange = (newEditorState: EditorState) => {
+        setEditorState(newEditorState);
+        const htmlText = stateToHTML(newEditorState.getCurrentContent());
+        formik.setFieldValue('content', htmlText);
+    };
 
     useEffect(() => {
         if (isSuccess && !isLoading && !isError && !error) {
@@ -145,31 +178,24 @@ const BlogAddEditForm = ({
             </div>
             <div className="form-group">
                 <label>Content</label>
-                <TextField
-                    className={
-                        formik.errors &&
-                        formik.errors?.content &&
-                        formik.touched &&
-                        formik.touched?.content
-                            ? 'form-control is-invalid'
-                            : 'form-control '
-                    }
-                    id="outlined-basic"
-                    variant="outlined"
-                    multiline
-                    name="content"
-                    value={formik.values?.content || ''}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                />
-                {formik.errors &&
-                    formik.errors?.content &&
-                    formik.touched &&
-                    formik.touched?.content && (
-                        <div className="invalid-feedback">
-                            {(formik.errors?.content as string) || ''}
-                        </div>
-                    )}
+                <div>
+                    <Editor
+                        editorState={editorState}
+                        toolbarClassName="toolbarClassName"
+                        wrapperClassName="wrapperClassName"
+                        editorClassName="editorClassName"
+                        onEditorStateChange={handleEditorStateChange}
+                        onBlur={() => formik.setFieldTouched('content', true)}
+                    />
+                </div>
+                {formik.errors?.content && formik.touched?.content && (
+                    <span
+                        className="invalid-feedback-text"
+                        style={{ color: 'red' }}
+                    >
+                        {formik.errors?.content}{' '}
+                    </span>
+                )}
             </div>
             <Button
                 type={'submit'}

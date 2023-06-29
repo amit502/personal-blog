@@ -4,6 +4,7 @@ import { ArrowLeft, Edit, TrashCan } from '@carbon/icons-react';
 import CustomModal from '../components/Modal';
 import BlogAddEditForm from './BlogAddEditForm';
 import Button from '../components/Button';
+import parse from 'html-react-parser';
 import useAuthentication from '../hooks/useAuthentication';
 
 interface BlogDetailProps {
@@ -97,7 +98,9 @@ const BlogDetail = ({
                             </div>
                         )}
                     </div>
-                    <div className="card-content">{blog.content}</div>
+                    <div className="card-content">
+                        {parse(blog?.content || '')}
+                    </div>
                 </div>
             </div>
         </React.Fragment>

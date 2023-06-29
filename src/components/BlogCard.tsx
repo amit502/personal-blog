@@ -67,8 +67,10 @@ const BlogCard = ({
             </div>
             <div className="card-content">
                 <p data-testid="card-content">
-                    {blog.content?.substring(0, 200)}
-                    {blog.content?.length > 200 ? '...' : ''}
+                    {blog?.content?.replace(/<[^>]+>/g, '')?.substring(0, 200)}
+                    {blog.content?.replace(/<[^>]+>/g, '')?.length > 200
+                        ? '...'
+                        : ''}
                 </p>
             </div>
         </div>
