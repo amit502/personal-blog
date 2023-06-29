@@ -1,4 +1,4 @@
-import { IUser } from './AuthTypes';
+import { IUser, IUserCreate } from './AuthTypes';
 
 export interface IBlog {
     id?: number;
@@ -7,7 +7,7 @@ export interface IBlog {
     content: string;
     published: boolean;
     UserId: number;
-    User?: IUser;
+    User?: IUserCreate;
     createdAt?: string;
     updatedAt?: string;
 }

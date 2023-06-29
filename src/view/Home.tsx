@@ -109,7 +109,7 @@ const Home = () => {
     }, [blogDetailView, createBlogForm, refetch]);
 
     return (
-        <div className="container">
+        <div className="container" data-testid="home">
             <Alert />
             <CustomModal
                 isOpen={createBlogForm}

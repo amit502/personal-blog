@@ -16,6 +16,7 @@ exports.getBlogs = async (limit, offset, res, req) => {
             limit: limit,
             offset: offset,
             where: token && token !== 'undefined' ? {} : { published: true },
+            order: [['createdAt', 'DESC']],
             include: [
                 {
                     model: db.User,

@@ -20,7 +20,11 @@ const BlogCard = ({
     const loggedIn = useAuthentication();
     return (
         <div className="col-lg-4 col-md-6 col-12">
-            <div className="card" onClick={() => handleClick(blog)}>
+            <div
+                className="card"
+                onClick={() => handleClick(blog)}
+                data-testid="blog-card"
+            >
                 <div className="card-top">
                     <div>
                         <div className="card-title">
@@ -65,9 +69,9 @@ const BlogCard = ({
                     )}
                 </div>
                 <div className="card-content">
-                    <p>
+                    <p data-testid="card-content">
                         {blog.content?.substring(0, 200)}
-                        {'...'}
+                        {blog.content?.length > 200 ? '...' : ''}
                     </p>
                 </div>
             </div>

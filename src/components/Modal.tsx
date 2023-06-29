@@ -29,12 +29,14 @@ const CustomModal = ({
                 className="container-fluid modal-box"
                 tabIndex={-1}
                 role="dialog"
+                data-testid="modal-box"
             >
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className=" d-flex flex-row">
                             <span className="pl-3 pt-3">
                                 <Close
+                                    data-testid="close-modal"
                                     className="close-modal"
                                     onClick={() => handleOnClose()}
                                     style={{ cursor: 'pointer' }}
@@ -47,11 +49,15 @@ const CustomModal = ({
                                     fontSize: '22px',
                                     fontWeight: 'bold',
                                 }}
+                                data-testid="modal-title"
                             >
                                 {modalTitle}
                             </div>
                         </div>
-                        <div className="modal-body modal-form-body">
+                        <div
+                            className="modal-body modal-form-body"
+                            data-testid="modal-body"
+                        >
                             {children}
                             <div className="button-section">
                                 {isProgressBar ? (
