@@ -34,7 +34,7 @@ npm run test
 
 ```
 
-Prettier has been used for formatting the files and eslint has been used to enforce JS and Typescript rules. Most of the linter errors and warnings have resolved, while some of them were ignored.
+Prettier has been used for formatting the files and eslint has been used to enforce JS and Typescript rules. Most of the linter errors and warnings have been resolved, while some of them were ignored.
 
 ## Personal Blog Features
 
@@ -44,7 +44,7 @@ Prettier has been used for formatting the files and eslint has been used to enfo
 4. The blog cards can be clicked to open the detail view with the full content.
 5. The admin user can log in.The default credentials are: Email:patelamyt@gmail.com and password: test@123
 6. Once the user is logged in, several CRUD options open up. The user can add/update/delete/view detail page / publish/unpublish the blogs. Also, they may add other admin users.
-7. Logged in users can view all the published and unpublished blogs, while a user withot credentials can only view published blogs.
+7. Logged in users can view all the published and unpublished blogs, while a user without credentials can only view published blogs.
 8. The blogs are paginated and displayed in descending order of their creted date. The number of blogs displayed per page can be changed using the drop down on the bottom right corner.
 
 ## Deployment Details
