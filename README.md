@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+# personal-blog
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Personal blog site has been made using React, Node, Express and Sqlite DB. It also uses [React Query](https://www.npmjs.com/package/react-query) for synchronizing data between backend and frontend. Moreover, Jest and react-testing library are used for writing some test cases.
 
-## Available Scripts
+## Running the app
 
-In the project directory, you can run:
+### Backend
 
-### `npm start`
+The backend uses Node, Express and Sqlite DB. It uses JWT authentication and maintains login through access tokens and refresh tokens.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+cd server
+npm install
+npm run seed
+npm start
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
 
-### `npm test`
+### Frontend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The frontend uses React, React Query, Bootstrap, MUI and several other libraries to build the UI.
 
-### `npm run build`
+```
+npm install
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Tests
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Jest and React testing libray are used to test some components.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+npm run test
 
-### `npm run eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Prettier has been used for formatting the files and eslint has been used to enforce JS and Typescript rules. Most of the linter errors and warnings have resolved, while some of them were ignored.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Personal Blog Features
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. The application is a personal blog site.
+2. The blog can be visited by anyone whether they are an authorized/admin user or not.
+3. The landing page displays paginated blog cards which are published by the admin user.
+4. The blog cards can be clicked to open the detail view with the full content.
+5. The admin user can log in.The default credentials are: Email:patelamyt@gmail.com and password: test@123
+6. Once the user is logged in, several CRUD options open up. The user can add/update/delete/view detail page / publish/unpublish the blogs. Also, they may add other admin users.
+7. Logged in users can view all the published and unpublished blogs, while a user withot credentials can only view published blogs.
+8. The blogs are paginated and displayed in descending order of their creted date. The number of blogs displayed per page can be changed using the drop down on the bottom right corner.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Deployment Details
 
-## Learn More
+1. The fronend has been deployed on [Netlify](https://www.netlify.com/)
+2. The backend has been deployed on [Render](https://render.com/)
+3. The app can be accessed using the public url: (https://main--bespoke-cupcake-cb3162.netlify.app/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Note: The render.com hosting for backend is a free plan and hence it spins down when inactive. If the blogs are not fetched and 'No Blogs!' text is displayed, the backend service needs to be restarted. Please, call at 9843527854 so that I can restart it.
